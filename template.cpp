@@ -168,6 +168,57 @@ int cfn(int n) {
     return s;
 }
 
+//分解质因数
+void divide(int x) {
+    for (int i = 2; i <= x / i; i++)
+        if (x % i == 0) {
+            int s = 0;
+            while (x % i == 0) x /= i, s++;
+            cout << i << ' ' << s << endl;
+        }
+    if (x > 1) cout << x << ' ' << 1 << endl;
+    cout << endl;
+}
+
+//快速排序：quick_sort(q, 0, n - 1);
+void quick_sort(int q[], int l, int r) {
+    if (l >= r) return;
+    int i = l - 1, j = r + 1, x = q[l + r >> 1];
+    while (i < j) {
+        do i++; while (q[i] < x);
+        do j--; while (q[j] > x);
+        if (i < j) swap(q[i], q[j]);
+    }
+    quick_sort(q, l, j);
+    quick_sort(q, j + 1, r);
+}
+
+//KMP
+int n, m;
+int nxt[maxn];
+char p[maxn], s[maxm]; //p为模式串，s为主串
+
+void calc() {
+    for (int i = 2, j = 0; i <= n; ++i) {
+        while (j && p[i] != p[j + 1]) j = nxt[j];
+        if (p[i] == p[j + 1]) j++;
+        nxt[i] = j;
+    }
+}
+
+void kmp() {
+    cin >> n >> p + 1 >> m >> s + 1;
+    calc();
+    for (int i = 1, j = 0; i <= m; ++i) {
+        while (j && s[i] != p[j + 1]) j = nxt[j];
+        if (s[i] == p[j + 1]) j++;
+        if (j == n) {
+            cout << i - n << ' ';
+            j = nxt[j];
+        }
+    }
+}
+
 void solve() {
 
 }
