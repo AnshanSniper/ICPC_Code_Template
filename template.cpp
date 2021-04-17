@@ -48,13 +48,12 @@ ll qp(ll a, ll b, ll mod) {
     return ans;
 }
 
-//快速加
-ll qa(ll base, ll cnt, ll mod) {
+//快速乘
+ll qm(ll base, ll cnt, ll mod) {
     ll res = 0;
-    while (cnt) {
+    for (; cnt; cnt >>= 1) {
         if (cnt & 1) res = (res + base) % mod;
         base = (base + base) % mod;
-        cnt >>= 1;
     }
     return res;
 }
